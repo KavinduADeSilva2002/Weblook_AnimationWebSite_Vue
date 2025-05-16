@@ -1,26 +1,31 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import NavbarSection from './components/NavbarSection.vue'
+import HeroSection from './components/HeroSection.vue'
+import AboutSection from './components/AboutSection.vue'
+import RulesSection from './components/RulesSection.vue'
+import ContactSection from './components/ContactSection.vue'
+import FooterSection from './components/FooterSection.vue'
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+onMounted(() => {
+  AOS.init({
+    duration: 800,
+    once: true,
+    easing: 'ease-in-out',
+  })
+})
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <NavbarSection />
+  <HeroSection />
+  <main class="content">
+    <AboutSection />
+    <RulesSection />
+    <ContactSection />
+  </main>
+  <FooterSection />
+</template>
