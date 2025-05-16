@@ -9,9 +9,12 @@ const app = createApp(App)
 
 app.mount('#app')
 
-// Initialize AOS after mounting the app
+// Initialize AOS with enhanced configuration
 AOS.init({
-  once: true,        // only animate once
-  duration: 800,     // animation duration
-  easing: 'ease-in-out' // animation easing
+  duration: 1000,
+  once: false,
+  mirror: true,
+  offset: 200,
+  easing: 'ease-in-out-cubic',
+  anchorPlacement: 'top-bottom'
 })
