@@ -59,6 +59,7 @@ body {
     background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
     position: relative;
     overflow: hidden;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .hero-container {
@@ -152,6 +153,17 @@ body {
 }
 
 .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s ease-out;
+}
+
+.section.active {
     opacity: 1;
     transform: translateY(0);
 }
@@ -343,21 +355,33 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.4s ease;
 }
 
 .rule-section:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) rotateX(10deg) rotateY(10deg);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
 .rule-section h3 {
     color: #0f2027;
     margin-bottom: 1rem;
     font-size: 1.2rem;
+    transform: translateZ(30px);
+    transition: transform 0.3s ease;
+}
+
+.rule-section:hover h3 {
+    transform: translateZ(50px);
 }
 
 .rule-section ul {
     list-style-position: inside;
     padding-left: 1rem;
+    transform: translateZ(20px);
+    transition: transform 0.3s ease;
 }
 
 .rule-section li {
@@ -367,6 +391,13 @@ body {
 
 .rule-section p {
     margin-bottom: 0.5rem;
+    transform: translateZ(20px);
+    transition: transform 0.3s ease;
+}
+
+.rule-section:hover p,
+.rule-section:hover ul {
+    transform: translateZ(40px);
 }
 
 @media (max-width: 768px) {
@@ -457,4 +488,9 @@ body {
     .submit-btn {
         width: 100%;
     }
+}
+
+/* Add smooth transitions for all sections */
+#about, #rules, #contact {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
