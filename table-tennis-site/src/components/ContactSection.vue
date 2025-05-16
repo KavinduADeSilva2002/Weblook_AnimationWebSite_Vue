@@ -43,14 +43,28 @@ async function submitForm() {
       from_name: form.name,
       from_email: form.email,
       phone: form.phone,
-      message: form.message
+      message: `
+Subject: New Contact Form Submission
+
+Hi, you received a new form submission.
+
+Name: ${form.name}
+
+Email: ${form.email}
+
+Message:
+${form.message}
+
+Regards,
+Your Website
+      `
     }
 
     await emailjs.send(
       'service_g5xazgg',
       'template_9kt5roq',
       templateParams,
-      'oBvOeut9DNhlaMrNg'  // Your public key
+      'oBvOeut9DNhlaMrNg'
     )
 
     alert('Message sent successfully!')
