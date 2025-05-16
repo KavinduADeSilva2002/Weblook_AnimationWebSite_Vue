@@ -4,6 +4,7 @@ import App from './App.vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import './assets/style.css'
+import emailjs from '@emailjs/browser'
 
 const app = createApp(App)
 
@@ -18,3 +19,6 @@ AOS.init({
   easing: 'ease-in-out-cubic',
   anchorPlacement: 'top-bottom'
 })
+
+// Initialize EmailJS with your public key
+emailjs.init('oBvOeut9DNhlaMrNg')

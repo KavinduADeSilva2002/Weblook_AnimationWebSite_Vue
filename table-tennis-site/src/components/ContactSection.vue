@@ -19,18 +19,54 @@
         <label>Message</label>
         <textarea v-model="form.message" required placeholder="Your message"></textarea>
       </div>
-      <button type="submit" class="submit-btn">Send Message</button>
+      <button type="submit" class="submit-btn" :disabled="loading">
+        {{ loading ? 'Sending...' : 'Send Message' }}
+      </button>
     </form>
   </section>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-const form = reactive({ name: '', email: '', phone: '', message: '' })
+import { reactive, ref } from 'vue'
+import emailjs from '@emailjs/browser'
 
-function submitForm() {
-  console.log('Form submitted:', form)
-  alert('Thanks! We will get back soon.')
-  Object.keys(form).forEach(key => form[key] = '')
+const form = reactive({ name: '', email: '', phone: '', message: '' })
+const loading = ref(false)
+
+async function submitForm() {
+  try {
+    loading.value = true
+    
+    const templateParams = {
+      to_name: 'Admin',
+      to_email: 'kavinduanjana35@gmail.com',
+      from_name: form.name,
+      from_email: form.email,
+      phone: form.phone,
+      message: form.message
+    }
+
+    await emailjs.send(
+      'service_g5xazgg',
+      'template_9kt5roq',
+      templateParams,
+      'oBvOeut9DNhlaMrNg'  // Your public key
+    )
+
+    alert('Message sent successfully!')
+    Object.keys(form).forEach(key => form[key] = '')
+  } catch (error) {
+    console.error('EmailJS Error:', error)
+    alert('Failed to send message. Please try again.')
+  } finally {
+    loading.value = false
+  }
 }
 </script>
+
+<style scoped>
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+</style>
